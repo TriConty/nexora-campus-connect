@@ -1,0 +1,185 @@
+{
+  "name": "Event",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "short_description": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "schedule": {
+      "type": "string",
+      "description": "Agenda, one item per line"
+    },
+    "category": {
+      "type": "string"
+    },
+    "format": {
+      "type": "string",
+      "enum": [
+        "Offline",
+        "Online",
+        "Hybrid"
+      ]
+    },
+    "cover_image": {
+      "type": "string"
+    },
+    "gallery": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "venue": {
+      "type": "string"
+    },
+    "location_details": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "registration_opens": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "registration_deadline": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "capacity": {
+      "type": "number",
+      "description": "0 or empty = unlimited"
+    },
+    "fee": {
+      "type": "number"
+    },
+    "eligibility": {
+      "type": "string"
+    },
+    "eligible_years": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "eligible_departments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "prerequisites": {
+      "type": "string"
+    },
+    "external_link": {
+      "type": "string"
+    },
+    "custom_questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "cancellation_allowed": {
+      "type": "boolean",
+      "default": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending",
+        "published",
+        "rejected",
+        "cancelled"
+      ],
+      "default": "draft"
+    },
+    "moderation_note": {
+      "type": "string"
+    },
+    "organizer_id": {
+      "type": "string"
+    },
+    "organizer_name": {
+      "type": "string"
+    },
+    "registration_count": {
+      "type": "number",
+      "default": 0
+    },
+    "save_count": {
+      "type": "number",
+      "default": 0
+    },
+    "view_count": {
+      "type": "number",
+      "default": 0
+    },
+    "is_sample": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "title",
+    "category",
+    "start_date"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.status": {
+            "$in": [
+              "published",
+              "cancelled"
+            ]
+          }
+        },
+        {
+          "data.organizer_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

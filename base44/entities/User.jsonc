@@ -1,0 +1,27 @@
+{
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "The role of the user in the app",
+      "enum": [
+        "admin",
+        "user"
+      ]
+    },
+    "notify_email": {
+      "type": "boolean",
+      "default": true,
+      "description": "Send event notifications to the user by email"
+    },
+    "notify_push": {
+      "type": "boolean",
+      "default": false,
+      "description": "Send event notifications to the user by mobile push"
+    }
+  },
+  "required": [
+    "role"
+  ],
+  "name": "User",
+  "type": "object"
+}
